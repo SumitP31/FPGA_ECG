@@ -9,7 +9,7 @@ reg[31:0] counter;
             counter <=0;
             limit <=0;
         end
-        else if(counter >= 20) begin
+        else if(counter >= 150) begin
             limit<=1;
         end
         else begin

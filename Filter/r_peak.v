@@ -5,6 +5,7 @@ module r_peak(
     input clk,rst,
     input [7:0] d_in,
     output reg r_peak,
+    output reg slope_,
     output reg[8:0] diff 
 );
 
@@ -64,6 +65,8 @@ always @(posedge clk) begin
     end
 
     diff<=d_out;
+    slope_ <= slope;
+    r_peak<=0;
 
 end
 
@@ -71,11 +74,7 @@ always @(posedge slope) begin
     if (limit == 1) begin
     r_peak <= slope;       
     rst_cnt<=1;
-    end
-    else begin
-        r_peak<=0;
-    end
-    
+    end    
 end
 
 endmodule
