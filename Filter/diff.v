@@ -1,11 +1,13 @@
+`include "parameters.v"
+
 module diff (
     input clk,rst,
-    input [7:0] d_in,
-    output reg [8:0] d_out
+    input [`data_input-1:0] d_in,
+    output reg [`data_input:0] d_out
 );
     
-    reg[7:0] d_in_prev;
-    reg[8:0] v_diff;
+    reg[`data_input-1:0] d_in_prev;
+    reg[`data_input:0] v_diff;
 
     always @(posedge clk) begin
         if (rst ==1) begin  

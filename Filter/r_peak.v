@@ -1,15 +1,16 @@
 `include "diff.v"
 `include "limit_counter.v"
+`include "parameters.v"
 
 module r_peak(
     input clk,rst,
-    input [7:0] d_in,
+    input [`data_input-1:0] d_in,
     output reg r_peak,
     output reg slope_,
-    output reg[8:0] diff 
+    output reg[`data_input:0] diff 
 );
 
-wire[8:0] d_out;
+wire[`data_input:0] d_out;
 
 reg rst_cnt;
 wire limit;
@@ -27,8 +28,8 @@ limit_counter llt(
     .limit(limit)
     );
 
-parameter vth_p = 265;
-parameter vth_n = 250;
+// parameter vth_p = 265;
+// parameter vth_n = 250;
 
 reg [3:0] counter;
 
@@ -48,15 +49,15 @@ always @(posedge clk) begin
 
     else begin
         rst_cnt <=0;
-        if(d_out>=vth_p) begin
+        if(d_out>=`vth_p) begin
             slope<=1;
         end
 
-        else if(d_out<=vth_n) begin
+        else if(d_out<=`vth_n) begin
             slope<=1;
         end
         
-        else if (d_out<=vth_p | d_out>=vth_n) begin
+        else if (d_out<=`vth_p | d_out>=`vth_n) begin
             slope <=0;
         end
         else begin
